@@ -19,10 +19,19 @@ class App extends Component {
         })
     }
 
-    nameChangeHandler = (e) => {
+    nameChangeHandler = (e, id) => {
         console.log("clicked")
+        const pIndex = this.state.persons.findIndex(p => {
+            return p.id === id
+        });
+        const p = {...this.state.persons[pIndex]};
+        p.name = e.target.value;
+        const ps = [...this.state.persons];
+        ps[pIndex] = p;
+
+
         this.setState({
-            persons: [{name: "Max"}, {name: e.target.value}, {name: "Bill"}]
+            persons: ps
         })
     }
 
@@ -46,6 +55,7 @@ class App extends Component {
                             personName={p.name}
                             age={p.age}
                             key={p.id}
+                            change={(e) => this.nameChangeHandler(e, p.id)}
                             click={() => this.deletePersonHandler(i)}/>
                         })
                     }
