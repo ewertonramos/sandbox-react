@@ -26,12 +26,17 @@ class App extends Component {
         })
     }
 
+    togglePersonsHandler = () => {
+        const show = this.state.showPersons;
+        this.setState({showPersons: !show});
+    }
+
     render() {
         return (
             <div className="App">
                 <h1>Hello world!</h1>
                 <p>This is working</p>
-                <button onClick={this.switchNameHandler.bind(this, 'BOUND')}>Changen name</button>
+                <button onClick={this.togglePersonsHandler}>Change</button>
                 {this.state.showPersons ?
                 <div>
                     <Person click={this.switchNameHandler.bind(this, 'BINDING')} personName={this.state.persons[0].name}
