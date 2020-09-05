@@ -9,7 +9,7 @@ class App extends Component {
             {name: "Joao", age: 40},
             {name: "Jose", age: 30}
         ],
-        showPersons: false
+        showPersons: true
     }
 
     switchNameHandler = (newName) => {
@@ -32,20 +32,25 @@ class App extends Component {
     }
 
     render() {
+        let persons = null;
+        if (this.state.showPersons) {
+            persons = (
+            <div>
+                <Person click={this.switchNameHandler.bind(this, 'BINDING')} personName={this.state.persons[0].name}
+                        age={this.state.persons[0].age}> Some info here </Person>
+                <Person change={this.nameChangeHandler} personName={this.state.persons[1].name}
+                        age={this.state.persons[1].age}> Another info </Person>
+                <Person click={this.switchNameHandler} personName={this.state.persons[2].name}
+                        age={this.state.persons[2].age}/>
+            </div>
+            );
+        }
         return (
             <div className="App">
                 <h1>Hello world!</h1>
                 <p>This is working</p>
                 <button onClick={this.togglePersonsHandler}>Change</button>
-                {this.state.showPersons ?
-                <div>
-                    <Person click={this.switchNameHandler.bind(this, 'BINDING')} personName={this.state.persons[0].name}
-                            age={this.state.persons[0].age}> Some info here </Person>
-                    <Person change={this.nameChangeHandler} personName={this.state.persons[1].name}
-                            age={this.state.persons[1].age}> Another info </Person>
-                    <Person click={this.switchNameHandler} personName={this.state.persons[2].name}
-                            age={this.state.persons[2].age}/>
-                </div> : null}
+                {persons}
             </div>
         );
     }
